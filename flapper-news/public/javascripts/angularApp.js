@@ -237,13 +237,3 @@ function functionAuth($state, auth) {
             });
         };
     };
-
-angular.module("flapperNews").controller('NavController', functionNav)
-functionNav.$inject = ['auth']
-function functionNav(auth)
-{
-        var vm = this;
-        vm.isLoggedIn = auth.isLoggedIn;
-        vm.currentUser = auth.currentUser;
-        vm.logOut = auth.logOut;
-};
