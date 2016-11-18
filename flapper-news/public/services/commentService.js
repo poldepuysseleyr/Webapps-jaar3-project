@@ -61,8 +61,8 @@
       });
     };
 
-    function upvoteComment(post,comment){
-      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
+    function upvoteComment(postid,comment){
+      return $http.put('/posts/' + postid + '/comments/' + comment._id + '/upvote', null, {
           headers: {
               Authorization: 'Bearer ' + auth.getToken()
           }

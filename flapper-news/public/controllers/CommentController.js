@@ -9,7 +9,7 @@
         var vm = this;
         vm.comments = [];
         vm.comment;
-
+        vm.postid;
 
 
         vm.getComments = getComments;
@@ -21,12 +21,12 @@
 
         function activate() {
             getComments();
-            $log.log("aangeroepen");
         }
 
         function getComments(){
           return commentService.getAll($stateParams.id).then(function(data){
             vm.comments = data.data;
+            vm.postid = $stateParams.id;
             return vm.comments;
           })
         }
@@ -45,7 +45,7 @@
         };
 
         function incrementUpvotes(comment) {
-            commentService.upvoteComment(post, comment);
+            commentService.upvoteComment(vm.postid, comment);
         };
 
 
