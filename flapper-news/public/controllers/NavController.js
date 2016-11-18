@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    angular.module('hoGentApp').controller('NavController', NavController);
+    angular.module('flapperNews').controller('NavController', NavController);
 
     NavController.$inject = ['auth'];
 

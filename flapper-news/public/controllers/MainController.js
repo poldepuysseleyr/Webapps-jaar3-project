@@ -10,7 +10,9 @@
 
         vm.isLoggedIn = auth.isLoggedIn;
         vm.posts = [];
+        vm.post;
         vm.getPosts = getPosts;
+        vm.getPost = getPost;
         vm.addPost = addPost;
         vm.incrementUpvotes = incrementUpvotes;
 
@@ -19,6 +21,20 @@
         function activate(){
           return getPosts().then(function(){
             $log.log("Posts were retrieved");
+          })
+        };
+
+        function getPosts(){
+          postService.getAll().then(function(data){
+            $log.log("getPosts in MainController was called");
+            vm.posts = data.data;
+            return vm.posts;
+          })
+        };
+
+        function getPost(){
+          return postService.get($stateParams.id).then(function(data){
+            vm.post = data;
           })
         }
 

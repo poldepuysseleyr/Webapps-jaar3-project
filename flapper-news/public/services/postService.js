@@ -11,9 +11,7 @@
       getAll:getAll,
       create:create,
       upvote:upvote,
-      get:get,
-      addComment:addComment,
-      upvoteComment:upvoteComment
+      get:get
     }
 
     return service;
@@ -52,23 +50,7 @@
       });
     };
 
-    function addComment(id,comment){
-      return $http.post('/posts/' + id + '/comments', comment, {
-          headers: {
-              Authorization: 'Bearer ' + auth.getToken()
-          }
-      });
-    };
-
-    function upvoteComment(post,comment){
-      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
-          headers: {
-              Authorization: 'Bearer ' + auth.getToken()
-          }
-      }).success(function(data) {
-          comment.upvotes += 1;
-      });
-    };
+    
 
 
   }
