@@ -55,7 +55,7 @@
                   posted by <a>{{post.author}}</a> |
             </span>
             <span>
-                    <a href="#/posts/{{post._id}}">Comments</a>
+                    <a href="#/posts/{{post._id}}/comments">Comments</a>
            </span>
 
         </div>
@@ -76,6 +76,7 @@
     </script>
 
     <script type="text/ng-template" id="/posts.html">
+      <div>
         <div class="page-header">
             <h3>
                     <a ng-show="ctrl.post.link" href="{{ctrl.post.link}}">
@@ -87,7 +88,7 @@
                 </h3>
         </div>
 
-        <div ng-repeat="comment in ctrl.post.comments | orderBy:'-upvotes'">
+        <div ng-repeat="comment in ctrl.comments | orderBy:'-upvotes'">
             <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(comment)"></span> {{comment.upvotes}} - by {{comment.author}}
             <span style="font-size:20px; margin-left:10px;">
                     {{comment.body}}
@@ -105,6 +106,7 @@
         <div ng-hide="ctrl.isLoggedIn()">
             <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
         </div>
+      </div>
     </script>
 
     <script type="text/ng-template" id="/register.html">

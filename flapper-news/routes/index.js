@@ -112,6 +112,18 @@ router.param('comment', function(req, res, next, id) {
     });
 });
 
+router.get('/posts/:post/comments', function(req, res, next) {
+      Comment.find({
+          post: req.post._id
+      }, function(err, comments) {
+          if (err) {
+              return next(err);
+          }
+
+          res.json(comments);
+      });
+  });
+
 router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
     req.comment.upvote(function(err, comment) {
         if (err) {

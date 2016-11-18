@@ -20,7 +20,7 @@
 
     function getAll(){
       return $http.get('/posts').success(function(data) {
-          return data;
+        return data;
       });
     };
 
@@ -50,7 +50,7 @@
       });
     };
 
-    
+
 
 
   }

@@ -8,7 +8,7 @@
   function commentService($log,$http,auth){
 
     var service = {
-      //getAll:getAll,
+      getAll:getAll,
       //create:create,
       //upvote:upvote,
     //  get:get,
@@ -20,11 +20,11 @@
 
     ////////////
 
-    // function getAll(){
-    //   return $http.get('/posts').success(function(data) {
-    //       return data;
-    //   });
-    // };
+    function getAll(id){
+      return $http.get('/posts/' + id + '/comments').success(function(data) {
+          return data;
+      });
+    };
     //
     // function create(post){
     //   return $http.post('/posts', post, {
@@ -53,6 +53,7 @@
     // };
 
     function addComment(id,comment){
+      $log.log("addComment aangeroepen");
       return $http.post('/posts/' + id + '/comments', comment, {
           headers: {
               Authorization: 'Bearer ' + auth.getToken()

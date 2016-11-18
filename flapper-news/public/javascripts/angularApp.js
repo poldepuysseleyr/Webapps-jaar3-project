@@ -8,22 +8,12 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         url: '/home',
         templateUrl: '/home.html',
         controller: 'MainController',
-        controllerAs: 'ctrl',
-        resolve: {
-            postPromise: ['postService', function(postService) {
-                return postService.getAll();
-            }]
-        }
+        controllerAs: 'ctrl'
     }).state('posts', {
-        url: '/posts/{id}',
+        url: '/posts/{id}/comments',
         templateUrl: '/posts.html',
-        controller: 'MainController',
-        controllerAs: 'ctrl',
-        resolve: {
-            post: ['$stateParams', 'postService', function($stateParams, postService) {
-                return postService.get($stateParams.id);
-            }]
-        }
+        controller: 'CommentController',
+        controllerAs: 'ctrl'
     }).state('login', {
         url: '/login',
         templateUrl: '/login.html',

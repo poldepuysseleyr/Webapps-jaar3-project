@@ -3,9 +3,9 @@
 
     angular.module("flapperNews").controller('MainController', MainController)
 
-    MainController.$inject = ['$log','postService', 'auth']
+    MainController.$inject = ['$log', 'postService', 'auth','$stateParams']
 
-    function MainController($log,postService, auth) {
+    function MainController($log, postService, auth,$stateParams) {
         var vm = this;
 
         vm.isLoggedIn = auth.isLoggedIn;
@@ -18,24 +18,21 @@
 
         activate();
 
-        function activate(){
-          return getPosts().then(function(){
-            $log.log("Posts were retrieved");
-          })
+        function activate() {
+          return getPosts();
+      };
+
+        function getPosts() {
+            postService.getAll().then(function(data) {
+                vm.posts = data.data;
+                return vm.posts;
+            });
         };
 
-        function getPosts(){
-          postService.getAll().then(function(data){
-            $log.log("getPosts in MainController was called");
-            vm.posts = data.data;
-            return vm.posts;
-          })
-        };
-
-        function getPost(){
-          return postService.get($stateParams.id).then(function(data){
-            vm.post = data;
-          })
+        function getPost() {
+            return postService.get($stateParams.id).then(function(data) {
+                vm.post = data;
+            })
         }
 
         function addPost() {
@@ -50,8 +47,8 @@
             vm.link = '';
         };
 
-        function incrementUpvotes(post){
-          postService.upvote(post);
+        function incrementUpvotes(post) {
+            postService.upvote(post);
         }
 
 
