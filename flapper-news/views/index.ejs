@@ -188,10 +188,10 @@
         <div>
 
             <form name="outerForm" class="tab-form-demo">
-                <uib-tabset  active="activeForm">
+                <uib-tabset active="activeForm">
                     <uib-tab class="nav nav-tabs" index="0" heading="My profile">
-                        <ng-form name="nestedForm">
-                            <div class="form-group" ng-init="ctrl.getUser()">
+                        <ng-form name="nestedForm" ng-init="ctrl.getUser()">
+                            <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" class="form-control" required ng-model="ctrl.user.username" />
                                 <label>Firstname</label>
@@ -210,10 +210,36 @@
                         </ng-form>
                     </uib-tab>
                     <uib-tab index="1" heading="Posts">
-                        Some Tab Content
+                        <div ng-controller="MainController as ctrl">
+                            <div ng-repeat="post in ctrl.posts | orderBy:'-upvotes' | filter: {author:'test2'}">
+                                <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
+                                <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(post)"></span> {{post.upvotes}}
+                                <span style="font-size:20px; margin-left:10px;">
+                                  <a ng-show="post.link" href="{{post.link}}">
+                                      {{post.title}}
+                                  </a>
+                                  <span ng-hide="post.link">
+                                      {{post.title}}
+                                  </span>
+                                </span>
+                                <span ng-show="post.author">
+                                posted by <a>{{post.author}}</a>
+                          </span>
+
+
+                            </div>
+                        </div>
                     </uib-tab>
                     <uib-tab index="2" heading="Comments">
-                        More Tab Content
+                        <div ng-controller="CommentController as ctrl">
+                            <div ng-repeat="comment in ctrl.allComments | orderBy:'-upvotes' | filter:{author:'test2'}">
+                                <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(comment)"></span>
+                                <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(comment)"></span> {{comment.upvotes}} - by {{comment.author}}
+                                <span style="font-size:20px; margin-left:10px;">
+                              {{comment.body}}
+                          </span>
+                            </div>
+                        </div>
                     </uib-tab>
                 </uib-tabset>
             </form>

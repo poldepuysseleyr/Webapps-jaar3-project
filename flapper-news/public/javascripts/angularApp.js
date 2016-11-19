@@ -38,7 +38,12 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         url: '/myprofile/{id}',
         templateUrl: '/myprofile.html',
         controller: 'UserController',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        onEnter: ['$state', 'auth', function($state, auth) {
+                if (!auth.isLoggedIn()) {
+                    $state.go('home');
+                }
+            }]
     });
     $urlRouterProvider.otherwise('home');
 };

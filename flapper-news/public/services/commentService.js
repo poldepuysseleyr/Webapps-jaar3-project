@@ -9,6 +9,7 @@
 
     var service = {
       getAll:getAll,
+      getAllComments:getAllComments,
       //create:create,
       //upvote:upvote,
     //  get:get,
@@ -26,6 +27,15 @@
           return data;
       });
     };
+
+    function getAllComments(){
+      return $http.get('/comments').success(function(data){
+        $log.log(data);
+        return data;
+      });
+    }
+
+
     //
     // function create(post){
     //   return $http.post('/posts', post, {

@@ -32,7 +32,9 @@
       };
 
       function logOut(){
-        auth.logOut();
+        auth.logOut().then(function(){
+          $state.go('home');
+        });
       }
   };
 

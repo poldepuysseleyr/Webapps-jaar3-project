@@ -9,9 +9,10 @@
         var vm = this;
         vm.comments = [];
         vm.comment;
+        vm.allComments = [];
         vm.postid;
 
-
+        vm.getAllComments = getAllComments;
         vm.getComments = getComments;
         vm.addComment = addComment;
         vm.incrementUpvotes = incrementUpvotes;
@@ -21,7 +22,15 @@
         activate();
 
         function activate() {
+            getAllComments();
             getComments();
+
+        }
+
+        function getAllComments(){
+          return commentService.getAllComments().then(function(data){
+            vm.allComments = data.data;
+          });
         }
 
         function getComments(){

@@ -122,6 +122,16 @@ router.param('comment', function(req, res, next, id) {
     });
 });
 
+router.get('/comments', function(req, res, next) {
+    Comment.find(function(err, comments) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(comments);
+    });
+});
+
 router.get('/posts/:post/comments', function(req, res, next) {
     Comment.find({
         post: req.post._id
