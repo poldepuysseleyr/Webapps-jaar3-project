@@ -8,9 +8,15 @@ var UserSchema = new mongoose.Schema({
         lowercase: true,
         unique: true
     },
+    firstname:String,
+    lastname:String,
+    gender:String,
+    email:String,
+    birthday:Date,
+    address:String,
     hash: String,
     salt: String
-})  
+})
 
 UserSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');

@@ -76,6 +76,16 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
         res.json(post);
     });
 });
+
+router.put('/posts/:post/downvote', auth, function(req, res, next) {
+    req.post.downvote(function(err, post) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(post);
+    });
+});
 router.post('/posts/:post/comments', auth, function(req, res, next) {
     var comment = new Comment(req.body);
     comment.post = req.post;
@@ -113,19 +123,29 @@ router.param('comment', function(req, res, next, id) {
 });
 
 router.get('/posts/:post/comments', function(req, res, next) {
-      Comment.find({
-          post: req.post._id
-      }, function(err, comments) {
-          if (err) {
-              return next(err);
-          }
+    Comment.find({
+        post: req.post._id
+    }, function(err, comments) {
+        if (err) {
+            return next(err);
+        }
 
-          res.json(comments);
-      });
-  });
+        res.json(comments);
+    });
+});
 
 router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
     req.comment.upvote(function(err, comment) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(comment);
+    });
+});
+
+router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, next) {
+    req.comment.downvote(function(err, comment) {
         if (err) {
             return next(err);
         }
@@ -172,4 +192,33 @@ router.post('/login', function(req, res, next) {
             return res.status(401).json(info);
         }
     })(req, res, next);
+});
+
+router.param('user', function(req, res, next, id) {
+    var query = User.findById(id);
+
+    query.exec(function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return next(new Error('can\'t find user'));
+        }
+
+        req.user = user;
+        return next();
+    });
+});
+router.get('/users', function(req, res, next) {
+    User.find(function(err, users) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(users);
+    });
+});
+
+router.get('/users/:user', function(req, res, next) {
+    res.json(req.user);
 });

@@ -15,6 +15,7 @@
         vm.getPost = getPost;
         vm.addPost = addPost;
         vm.incrementUpvotes = incrementUpvotes;
+        vm.incrementDownvotes = incrementDownvotes;
 
         activate();
 
@@ -49,6 +50,10 @@
 
         function incrementUpvotes(post) {
             postService.upvote(post);
+        }
+
+        function incrementDownvotes(post){
+          postService.downvote(post);
         }
 
 

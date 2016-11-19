@@ -14,4 +14,9 @@ this.upvotes += 1;
 this.save(cb);
 };
 
+PostSchema.methods.downvote = function(cb) {
+this.upvotes -= 1;
+this.save(cb);
+};
+
 mongoose.model('Post', PostSchema);

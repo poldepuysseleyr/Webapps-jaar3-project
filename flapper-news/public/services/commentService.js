@@ -13,7 +13,8 @@
       //upvote:upvote,
     //  get:get,
       addComment:addComment,
-      upvoteComment:upvoteComment
+      upvoteComment:upvoteComment,
+      downvoteComment:downvoteComment
     }
 
     return service;
@@ -68,6 +69,16 @@
           }
       }).success(function(data) {
           comment.upvotes += 1;
+      });
+    };
+
+    function downvoteComment(postid,comment){
+      return $http.put('/posts/' + postid + '/comments/' + comment._id + '/downvote', null, {
+          headers: {
+              Authorization: 'Bearer ' + auth.getToken()
+          }
+      }).success(function(data) {
+          comment.upvotes -= 1;
       });
     };
 

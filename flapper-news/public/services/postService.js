@@ -11,6 +11,7 @@
       getAll:getAll,
       create:create,
       upvote:upvote,
+      downvote:downvote,
       get:get
     }
 
@@ -41,6 +42,16 @@
           }
       }).success(function(data) {
           post.upvotes += 1;
+      });
+    };
+
+    function downvote(post){
+      return $http.put('/posts/' + post._id + '/downvote', null, {
+          headers: {
+              Authorization: 'Bearer ' + auth.getToken()
+          }
+      }).success(function(data) {
+          post.upvotes -= 1;
       });
     };
 

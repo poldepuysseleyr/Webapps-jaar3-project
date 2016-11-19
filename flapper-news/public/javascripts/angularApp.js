@@ -34,6 +34,11 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
                 $state.go('home');
             }
         }]
+    }).state('myprofile', {
+        url: '/myprofile/{id}',
+        templateUrl: '/myprofile.html',
+        controller: 'UserController',
+        controllerAs: 'ctrl'
     });
     $urlRouterProvider.otherwise('home');
 };

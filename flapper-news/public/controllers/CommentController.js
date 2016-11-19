@@ -15,6 +15,7 @@
         vm.getComments = getComments;
         vm.addComment = addComment;
         vm.incrementUpvotes = incrementUpvotes;
+        vm.incrementDownvotes = incrementDownvotes;
         vm.isLoggedIn = auth.isLoggedIn;
 
         activate();
@@ -46,6 +47,10 @@
 
         function incrementUpvotes(comment) {
             commentService.upvoteComment(vm.postid, comment);
+        };
+
+        function incrementDownvotes(comment) {
+            commentService.downvoteComment(vm.postid, comment);
         };
 
 

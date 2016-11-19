@@ -14,6 +14,7 @@
             getToken: getToken,
             isLoggedIn: isLoggedIn,
             currentUser: currentUser,
+            currentUserId:currentUserId,
             register: register,
             logIn: logIn,
             logOut: logOut
@@ -46,7 +47,17 @@
                 var token = getToken();
                 var payload = angular.fromJson($window.atob(token.split('.')[1]));
                 return payload.username;
+
             }
+        };
+
+        function currentUserId(){
+          if (isLoggedIn()) {
+              var token = getToken();
+              var payload = angular.fromJson($window.atob(token.split('.')[1]));
+              return payload._id;
+
+          }
         };
 
         function register(user) {
