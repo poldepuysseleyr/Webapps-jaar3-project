@@ -32,7 +32,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         onEnter: ['$state', 'auth', function($state, auth) {
             if (auth.isLoggedIn()) {
                 $state.go('home');
-            }
+            };
         }]
     }).state('myprofile', {
         url: '/myprofile/{id}',
@@ -40,10 +40,20 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         controller: 'UserController',
         controllerAs: 'ctrl',
         onEnter: ['$state', 'auth', function($state, auth) {
-                if (!auth.isLoggedIn()) {
-                    $state.go('home');
-                }
+            if (!auth.isLoggedIn()) {
+                $state.go('home');
+            };
+        }],
+        resolve: {
+            postsUser: ['postService', function(postService) {
+                return postService.getAll();
+            }],
+            commentsUser: ['commentService', function(commentService) {
+                return commentService.getAllComments();
             }]
+
+        }
+
     });
     $urlRouterProvider.otherwise('home');
 };

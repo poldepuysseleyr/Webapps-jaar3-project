@@ -29,7 +29,6 @@
 
         function getUser() {
             userService.get(vm.userID).then(function(data) {
-                $log.log(data.data);
                 vm.user = data;
             });
         };
@@ -37,7 +36,6 @@
 
         function getUserID(){
             vm.userID = auth.currentUserId();
-            $log.log(vm.userID);
           };
         };
 

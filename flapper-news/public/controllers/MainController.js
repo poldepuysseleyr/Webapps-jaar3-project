@@ -11,6 +11,7 @@
         vm.isLoggedIn = auth.isLoggedIn;
         vm.posts = [];
         vm.post;
+        vm.user = auth.currentUser;
         vm.getPosts = getPosts;
         vm.getPost = getPost;
         vm.addPost = addPost;

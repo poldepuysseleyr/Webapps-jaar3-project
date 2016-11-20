@@ -11,7 +11,8 @@
         var auth = {};
         var service = {
             get:get,
-            getAll:getAll
+            getAll:getAll,
+            update:update,
         };
 
 
@@ -26,6 +27,13 @@
             return $http.get('/users').success(function(data) {
                 return data;
 
+            });
+        };
+
+        function update(id,user){
+          $log.log("userservice update")
+            return $http.put('/users/' + id, user).success(function(data) {
+                return data;
             });
         };
 

@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -17,6 +18,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "bower": "^1.8.0",
     "eslint": "^3.8.1",
     "eslint-config-angular": "^0.5.0",
     "eslint-plugin-angular": "^1.4.1"

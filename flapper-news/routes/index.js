@@ -232,3 +232,27 @@ router.get('/users', function(req, res, next) {
 router.get('/users/:user', function(req, res, next) {
     res.json(req.user);
 });
+
+router.put('/users/:user', function(req, res) {
+    User.findById(req.user._id, function(err, user) {
+        if (err) {
+            res.send(err);
+        }
+
+        user.username = req.body.username;
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.gender = req.body.gender;
+        user.email = req.body.email;
+        user.birthday = req.body.birthday;
+        user.address = req.body.address;
+
+        user.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(user);
+        })
+
+    });
+});

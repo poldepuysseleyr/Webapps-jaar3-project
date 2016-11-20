@@ -5,98 +5,93 @@
     <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script> -->
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-touch.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href='/stylesheets/style.css'></link>
+    <link rel="stylesheet" type="text/css" href='/stylesheets/animate.css'></link>
+    <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
 
-
-
-    <script src="/javascripts/flapperNews.module.js"></script>
-    <script src="/javascripts/angularApp.js" /></script>
-    <script src="/controllers/MainController.js"></script>
-    <script src="/controllers/AuthController.js"></script>
-    <script src="/controllers/NavController.js"></script>
-    <script src="/controllers/CommentController.js"></script>
-    <script src="/controllers/UserController.js"></script>
-    <script src="/services/authService.js"></script>
-    <script src="/services/postService.js"></script>
-    <script src="/services/commentService.js"></script>
-    <script src="/services/userService.js"></script>
-    <style>
-        .glyphicon-thumbs-up {
-            cursor: pointer;
-        }
-
-        .glyphicon-thumbs-down {
-            cursor: pointer;
-        }
-    </style>
-    <style type="text/css">
-        form.tab-form-demo .tab-pane {
-            margin: 20px 20px;
-        }
-    </style>
 </head>
 
 <body ng-app="flapperNews">
-    <nav class="navbar navbar-default pull-right" ng-controller="NavController as ctrl">
-        <ul class="nav navbar-nav">
-            <li ng-show="ctrl.isLoggedIn()"><a>{{ ctrl.currentUser() }}</a></li>
-            <li ng-show="ctrl.isLoggedIn()"><a href="" ng-click="ctrl.logOut()">Log Out</a></li>
-            <li ng-show="ctrl.isLoggedIn()"><a href="/#/myprofile/{{ctrl.userID}}">My profile</a></li>
-            <li ng-hide="ctrl.isLoggedIn()"><a href="/#/login">Log In</a></li>
-            <li ng-hide="ctrl.isLoggedIn()"><a href="/#/register">Register</a></li>
-        </ul>
+  <div class="container-narrow">
+    <nav class="navbar navbar-masthead navbar-default" ng-controller="NavController as ctrl" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+        </div>
+        <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="glyphicon glyphicon-home" href="/#/home"></a>
+                </li>
+                <li ng-show="ctrl.isLoggedIn()"><a>{{ ctrl.currentUser() }}</a></li>
+                <button class="btn btn-default navbar-btn" ng-show="ctrl.isLoggedIn()" ng-click="ctrl.logOut()">Log Out</button>
+                <li ng-show="ctrl.isLoggedIn()"><a href="/#/myprofile/{{ctrl.userID}}">My profile</a></li>
+                <li ng-hide="ctrl.isLoggedIn()"><a href="/#/login">Log In</a></li>
+                <li ng-hide="ctrl.isLoggedIn()"><a href="/#/register">Register</a></li>
+            </ul>
+        </div>
     </nav>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <ui-view></ui-view>
+        <div>
+            <div>
+                <ui-view></ui-view>
+            </div>
         </div>
     </div>
 
 
+
     <!-- Home -->
     <script type="text/ng-template" id="/home.html">
-        <div class="page-header">
-            <h1>Flapper News</h1>
-        </div>
-        <div ng-repeat="post in ctrl.posts | orderBy:'-upvotes'">
-            <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
-            <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(post)"></span> {{post.upvotes}}
-            <span style="font-size:20px; margin-left:10px;">
+        <div>
+            <div class="page-header">
+                <h1>Flapper News</h1>
+            </div>
+            <h2>Posts</h2>
+            <div ng-repeat="post in ctrl.posts | orderBy:'-upvotes'">
+                <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
+                <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(post)"></span> {{post.upvotes}}
+                <span style="font-size:20px; margin-left:10px;">
                     <a ng-show="post.link" href="{{post.link}}">
                         {{post.title}}
                     </a>
                     <span ng-hide="post.link">
                         {{post.title}}
                     </span>
-            </span>
-            <span ng-show="post.author">
+                </span>
+                <span ng-show="post.author">
                   posted by <a>{{post.author}}</a> |
             </span>
-            <span>
+                <span>
                     <a href="#/posts/{{post._id}}/comments">Comments</a>
            </span>
 
-        </div>
-        <form ng-submit="ctrl.addPost()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">
-            <h3>Add a new post</h3>
+            </div>
+            <hr>
+            <form ng-submit="ctrl.addPost()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">
+                <h3>Add a new post</h3>
 
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Title" ng-model="ctrl.title"></input>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Title" ng-model="ctrl.title"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Link" ng-model="ctrl.link"></input>
+                </div>
+                <button  type="submit" class="btn btn-primary animated bounceInDown">Post</button>
+            </form>
+            <div ng-hide="ctrl.isLoggedIn()">
+                <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Link" ng-model="ctrl.link"></input>
+            <div class="footer">
+                <hr>
+                <p>Pol De Puysseleyr</p>
             </div>
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
-        <div ng-hide="ctrl.isLoggedIn()">
-            <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+
         </div>
     </script>
 
@@ -139,48 +134,52 @@
 
     <!-- Register -->
     <script type="text/ng-template" id="/register.html">
-        <div class="page-header">
-            <h1>Flapper News</h1>
-        </div>
-
-        <div ng-show="ctrl.error" class="alert alert-danger row">
-            <span>{{ ctrl.error.message }}</span>
-        </div>
-
-        <form ng-submit="ctrl.register()" style="margin-top:30px;">
-            <h3>Register</h3>
-
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" ng-model="ctrl.user.username"></input>
+        <div>
+            <div class="page-header">
+                <h1>Flapper News</h1>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" ng-model="ctrl.user.password"></input>
+
+            <div ng-show="ctrl.error" class="alert alert-danger row">
+                <span>{{ ctrl.error.message }}</span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+
+            <form ng-submit="ctrl.register()" style="margin-top:30px;">
+                <h3>Register</h3>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="ctrl.user.username"></input>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" ng-model="ctrl.user.password"></input>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
     </script>
 
     <!-- Login -->
     <script type="text/ng-template" id="/login.html">
-        <div class="page-header">
-            <h1>Flapper News</h1>
-        </div>
-
-        <div ng-show="ctrl.error" class="alert alert-danger row">
-            <span>{{ ctrl.error.message }}</span>
-        </div>
-
-        <form ng-submit="ctrl.logIn()" style="margin-top:30px;">
-            <h3>Log In</h3>
-
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" ng-model="ctrl.user.username"></input>
+        <div>
+            <div class="page-header">
+                <h1>Flapper News</h1>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" ng-model="ctrl.user.password"></input>
+
+            <div ng-show="ctrl.error" class="alert alert-danger row">
+                <span>{{ ctrl.error.message }}</span>
             </div>
-            <button type="submit" class="btn btn-primary">Log In</button>
-        </form>
+
+            <form ng-submit="ctrl.logIn()" style="margin-top:30px;">
+                <h3>Log In</h3>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="ctrl.user.username"></input>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" ng-model="ctrl.user.password"></input>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+        </div>
     </script>
 
     <!-- My Profile -->
@@ -190,28 +189,42 @@
             <form name="outerForm" class="tab-form-demo">
                 <uib-tabset active="activeForm">
                     <uib-tab class="nav nav-tabs" index="0" heading="My profile">
-                        <ng-form name="nestedForm" ng-init="ctrl.getUser()">
+                        <form ng-submit="ctrl.updateUser()" ng-init="ctrl.getUser()" validate>
                             <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" class="form-control" required ng-model="ctrl.user.username" />
-                                <label>Firstname</label>
-                                <input type="text" class="form-control" required ng-model="model.name" />
-                                <label>Lastname</label>
-                                <input type="text" class="form-control" required ng-model="model.name" />
-                                <label>Gender</label>
-                                <input type="text" class="form-control" required ng-model="model.name" />
-                                <label>Email</label>
-                                <input type="text" class="form-control" required ng-model="model.name" />
-                                <label>Birthday</label>
-                                <input type="text" class="form-control" required ng-model="model.name" />
-                                <label>Address</label>
-                                <input type="text" class="form-control" required ng-model="model.name" />
                             </div>
-                        </ng-form>
+                            <div class="form-group">
+                                <label>Firstname</label>
+                                <input type="text" class="form-control" required ng-model="ctrl.user.firstname" />
+                            </div>
+                            <div class="form-group">
+                                <label>Lastname</label>
+                                <input type="text" class="form-control" required ng-model="ctrl.user.lastname" />
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <input type="text" class="form-control" required ng-model="ctrl.user.gender" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" required ng-model="ctrl.user.email" />
+                            </div>
+                            <div class="form-group">
+                                <label>Birthday</label>
+                                <input type="date" class="form-control" required ng-model="ctrl.user.birthday" />
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" required ng-model="ctrl.user.address" />
+                            </div>
+                            <button class="btn btn-success" type="submit" ng-click="ctrl.updateUser()">Update</button>
+
+                        </form>
                     </uib-tab>
                     <uib-tab index="1" heading="Posts">
-                        <div ng-controller="MainController as ctrl">
-                            <div ng-repeat="post in ctrl.posts | orderBy:'-upvotes' | filter: {author:'test2'}">
+                        <div>
+                            <div ng-repeat="post in ctrl.posts | orderBy:'-upvotes'">
                                 <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
                                 <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(post)"></span> {{post.upvotes}}
                                 <span style="font-size:20px; margin-left:10px;">
@@ -224,6 +237,7 @@
                                 </span>
                                 <span ng-show="post.author">
                                 posted by <a>{{post.author}}</a>
+                                <hr>
                           </span>
 
 
@@ -231,8 +245,8 @@
                         </div>
                     </uib-tab>
                     <uib-tab index="2" heading="Comments">
-                        <div ng-controller="CommentController as ctrl">
-                            <div ng-repeat="comment in ctrl.allComments | orderBy:'-upvotes' | filter:{author:'test2'}">
+                        <div>
+                            <div ng-repeat="comment in ctrl.comments | orderBy:'-upvotes'">
                                 <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(comment)"></span>
                                 <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(comment)"></span> {{comment.upvotes}} - by {{comment.author}}
                                 <span style="font-size:20px; margin-left:10px;">
@@ -245,6 +259,25 @@
             </form>
         </div>
     </script>
+
 </body>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-touch.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
+<script src="/javascripts/flapperNews.module.js"></script>
+<script src="/javascripts/angularApp.js" /></script>
+<script src="/controllers/MainController.js"></script>
+<script src="/controllers/AuthController.js"></script>
+<script src="/controllers/NavController.js"></script>
+<script src="/controllers/CommentController.js"></script>
+<script src="/controllers/UserController.js"></script>
+<script src="/services/authService.js"></script>
+<script src="/services/postService.js"></script>
+<script src="/services/commentService.js"></script>
+<script src="/services/userService.js"></script>
 
 </html>
