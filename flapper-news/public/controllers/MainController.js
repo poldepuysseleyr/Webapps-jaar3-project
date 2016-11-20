@@ -17,6 +17,7 @@
         vm.addPost = addPost;
         vm.incrementUpvotes = incrementUpvotes;
         vm.incrementDownvotes = incrementDownvotes;
+        vm.deletePost = deletePost;
 
         activate();
 
@@ -26,7 +27,6 @@
 
         function getPosts() {
             postService.getAll().then(function(data) {
-                $log.log(data.data);
                 vm.posts = data.data;
             });
         };
@@ -49,15 +49,23 @@
             });
             vm.title = '';
             vm.link = '';
+            return getPosts();
         };
 
         function incrementUpvotes(post) {
             postService.upvote(post);
-        }
+        };
 
         function incrementDownvotes(post) {
             postService.downvote(post);
+        };
+
+        function deletePost(post) {
+            return postService.deletePost(post).then(
+                getPosts());
         }
+
+
 
 
 

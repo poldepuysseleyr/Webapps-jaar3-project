@@ -233,7 +233,7 @@ router.get('/users/:user', function(req, res, next) {
     res.json(req.user);
 });
 
-router.put('/users/:user', function(req, res) {
+router.put('/users/:user', auth, function(req, res) {
     User.findById(req.user._id, function(err, user) {
         if (err) {
             res.send(err);
@@ -256,3 +256,16 @@ router.put('/users/:user', function(req, res) {
 
     });
 });
+
+router.delete('/posts/:post', function(req, res, next) {
+        Post.remove({
+            _id: req.post._id
+        }, function(err, post) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({
+                message: 'post deleted'
+            });
+        });
+    });

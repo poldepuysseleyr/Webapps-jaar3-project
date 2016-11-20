@@ -8,7 +8,6 @@
 
     function userService($http, $log, auth) {
 
-        var auth = {};
         var service = {
             get:get,
             getAll:getAll,
@@ -32,7 +31,11 @@
 
         function update(id,user){
           $log.log("userservice update")
-            return $http.put('/users/' + id, user).success(function(data) {
+            return $http.put('/users/' + id, user, {
+                headers: {
+                    Authorization: 'Bearer' + auth.getToken()
+                }
+            }).success(function(data) {
                 return data;
             });
         };

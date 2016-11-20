@@ -70,7 +70,7 @@
                 <span>
                     <a href="#/posts/{{post._id}}/comments">Comments</a>
            </span>
-
+          <span class="glyphicon glyphicon-trash pull-right" ng-click="ctrl.deletePost(post)"></span>
             </div>
             <hr>
             <form ng-submit="ctrl.addPost()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">

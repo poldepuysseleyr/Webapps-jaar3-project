@@ -12,7 +12,8 @@
       create:create,
       upvote:upvote,
       downvote:downvote,
-      get:get
+      get:get,
+      deletePost:deletePost,
     }
 
     return service;
@@ -59,6 +60,16 @@
       return $http.get('/posts/' + id).then(function(res) {
           return res.data;
       });
+    };
+
+    function deletePost(post) {
+        return $http.delete('/posts/' + post._id, {
+            headers: {
+                Authorization: 'Bearer' + auth.getToken()
+            }
+        }).then(function(res) {
+            return res.data;
+        })
     };
 
 
