@@ -10,12 +10,14 @@
 
         vm.isLoggedIn = auth.isLoggedIn;
         vm.currentUser = auth.currentUser;
+        vm.user;
+        vm.userID;
+
         vm.logOut = logOut;
         vm.getUser = getUser;
         vm.getUserID = getUserID;
 
-        vm.user;
-        vm.userID;
+
 
 
         activate();
@@ -43,9 +45,6 @@
         function getUserID() {
             vm.userID = auth.currentUserId();
         };
-
-
-
 
     };
 

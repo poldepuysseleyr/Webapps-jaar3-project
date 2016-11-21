@@ -10,6 +10,8 @@ var auth = jwt({
     secret: 'SECRET',
     userProperty: 'payload'
 });
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
@@ -122,15 +124,6 @@ router.param('comment', function(req, res, next, id) {
     });
 });
 
-router.get('/comments', function(req, res, next) {
-    Comment.find(function(err, comments) {
-        if (err) {
-            return next(err);
-        }
-
-        res.json(comments);
-    });
-});
 
 router.get('/posts/:post/comments', function(req, res, next) {
     Comment.find({
@@ -257,19 +250,6 @@ router.put('/users/:user', auth, function(req, res) {
     });
 });
 
-router.delete('/posts/:post', auth, function(req, res, next) {
-    Post.remove({
-        _id: req.post._id
-    }, function(err, post) {
-        if (err) {
-            res.send(err);
-        }
-        res.json({
-            message: 'post deleted'
-        });
-    });
-});
-
 router.delete('/posts/:post/comments/:comment', auth, function(req, res, next) {
     Comment.remove({
         _id: req.comment._id
@@ -279,6 +259,38 @@ router.delete('/posts/:post/comments/:comment', auth, function(req, res, next) {
         }
         res.json({
             message: 'comment deleted'
+        });
+    });
+});
+
+router.put('/posts/:post', auth, function(req, res) {
+    Post.findById(req.post._id, function(err, post) {
+        if (err) {
+            res.send(err);
+        }
+
+        post.title = req.body.title;
+        post.link = req.body.link;
+
+        post.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(post);
+        })
+
+    });
+});
+
+router.delete('/posts/:post', auth, function(req, res, next) {
+    Post.remove({
+        _id: req.post._id
+    }, function(err, post) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({
+            message: 'post deleted'
         });
     });
 });

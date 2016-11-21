@@ -47,13 +47,18 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         resolve: {
             postsUser: ['postService', function(postService) {
                 return postService.getAll();
-            }],
-            commentsUser: ['commentService', function(commentService) {
-                return commentService.getAllComments();
             }]
-
         }
-
+    }).state('modifypost', {
+        url: '/posts/{id}',
+        templateUrl: '/modifypost.html',
+        controller: 'MainController',
+        controllerAs: 'ctrl',
+        onEnter: ['$state', 'auth', function($state, auth) {
+            if (!auth.isLoggedIn()) {
+                $state.go('home');
+            }
+        }]
     });
     $urlRouterProvider.otherwise('home');
 };
