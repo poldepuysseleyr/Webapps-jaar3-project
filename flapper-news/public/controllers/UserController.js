@@ -29,8 +29,6 @@
         function activate() {
             getUserID();
             getUser();
-            $log.log(vm.username);
-            $log.log(vm.posts);
         };
 
         function getUser() {
@@ -47,7 +45,6 @@
         };
 
         function updateUser() {
-            $log.log("binnengekomen");
             vm.userID = auth.currentUserId();
             if (!vm.user.username || vm.user.username === '' || !vm.user.firstname || vm.user.firstname === '' || !vm.user.lastname || vm.user.lastname === '') {
                 return;
@@ -59,7 +56,7 @@
                 gender: vm.user.gender,
                 email: vm.user.email,
                 birthday: vm.user.birthday,
-                address: vm.user.address,
+                address: vm.user.address
             }).then($state.go("home"));
         };
 
@@ -71,42 +68,6 @@
 
 
 
-
     };
-
-
-
-
-
-
-    // function getPost() {
-    //     return postService.get($stateParams.id).then(function(data) {
-    //         vm.post = data;
-    //     })
-    // }
-    //
-    // function addPost() {
-    //     if (!vm.title || vm.title === '') {
-    //         return;
-    //     }
-    //     postService.create({
-    //         title: vm.title,
-    //         link: vm.link,
-    //     });
-    //     vm.title = '';
-    //     vm.link = '';
-    // };
-    //
-    // function incrementUpvotes(post) {
-    //     postService.upvote(post);
-    // }
-    //
-    // function incrementDownvotes(post){
-    //   postService.downvote(post);
-    // }
-
-
-
-
 
 })();

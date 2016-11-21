@@ -15,7 +15,8 @@
     //  get:get,
       addComment:addComment,
       upvoteComment:upvoteComment,
-      downvoteComment:downvoteComment
+      downvoteComment:downvoteComment,
+      deleteComment: deleteComment
     }
 
     return service;
@@ -33,35 +34,7 @@
         $log.log(data);
         return data;
       });
-    }
-
-
-    //
-    // function create(post){
-    //   return $http.post('/posts', post, {
-    //       headers: {
-    //           Authorization: 'Bearer ' + auth.getToken()
-    //       }
-    //   }).success(function(data) {
-    //       return data;
-    //   });
-    // };
-    //
-    // function upvote(post){
-    //   return $http.put('/posts/' + post._id + '/upvote', null, {
-    //       headers: {
-    //           Authorization: 'Bearer ' + auth.getToken()
-    //       }
-    //   }).success(function(data) {
-    //       post.upvotes += 1;
-    //   });
-    // };
-    //
-    // function get(id){
-    //   return $http.get('/posts/' + id).then(function(res) {
-    //       return res.data;
-    //   });
-    // };
+    };
 
     function addComment(id,comment){
       $log.log("addComment aangeroepen");
@@ -91,6 +64,16 @@
           comment.upvotes -= 1;
       });
     };
+
+    function deleteComment(postid,comment){
+      return $http.delete('/posts/' + postid + '/comments/' + comment._id,{
+        headers: {
+          Authorization : 'Bearer' + auth.getToken()
+        }
+      }).success(function(data){
+        return data;
+      });
+    }
 
 
   }

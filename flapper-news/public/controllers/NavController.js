@@ -3,14 +3,14 @@
 
     angular.module('flapperNews').controller('NavController', NavController);
 
-    NavController.$inject = ['$log', 'auth', 'userService', '$stateParams'];
+    NavController.$inject = ['$log', 'auth', 'userService', '$stateParams', '$state'];
 
-    function NavController($log, auth, userService, $stateParams) {
+    function NavController($log, auth, userService, $stateParams, $state) {
         var vm = this;
 
         vm.isLoggedIn = auth.isLoggedIn;
         vm.currentUser = auth.currentUser;
-        vm.logOut = auth.logOut;
+        vm.logOut = logOut;
         vm.getUser = getUser;
         vm.getUserID = getUserID;
 
@@ -21,9 +21,15 @@
         activate();
 
 
-        function activate(){
+        function activate() {
             getUserID();
             getUser();
+        };
+
+        function logOut() {
+            $state.go('home').then(function(){
+              auth.logOut();
+            });
         };
 
 
@@ -34,13 +40,13 @@
         };
 
 
-        function getUserID(){
+        function getUserID() {
             vm.userID = auth.currentUserId();
-          };
         };
 
 
 
 
+    };
 
 })();

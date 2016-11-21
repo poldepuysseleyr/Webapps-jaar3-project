@@ -257,15 +257,28 @@ router.put('/users/:user', auth, function(req, res) {
     });
 });
 
-router.delete('/posts/:post', function(req, res, next) {
-        Post.remove({
-            _id: req.post._id
-        }, function(err, post) {
-            if (err) {
-                res.send(err);
-            }
-            res.json({
-                message: 'post deleted'
-            });
+router.delete('/posts/:post', auth, function(req, res, next) {
+    Post.remove({
+        _id: req.post._id
+    }, function(err, post) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({
+            message: 'post deleted'
         });
     });
+});
+
+router.delete('/posts/:post/comments/:comment', auth, function(req, res, next) {
+    Comment.remove({
+        _id: req.comment._id
+    }, function(err, comment) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({
+            message: 'comment deleted'
+        });
+    });
+});

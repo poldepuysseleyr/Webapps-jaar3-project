@@ -46,10 +46,13 @@
             postService.create({
                 title: vm.title,
                 link: vm.link,
+            }).then(function(data){
+              vm.posts.push(data.data);
+              vm.title = '';
+              vm.link = '';
             });
-            vm.title = '';
-            vm.link = '';
-            return getPosts();
+
+
         };
 
         function incrementUpvotes(post) {
