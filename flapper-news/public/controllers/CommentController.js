@@ -7,13 +7,12 @@
     function CommentController($log, commentService, auth, $stateParams, postService) {
 
         var vm = this;
-        vm.allComments = [];
         vm.comments = [];
         vm.comment;
         vm.postid;
         vm.post;
+        vm.message;
 
-        vm.getAllComments = getAllComments;
         vm.getComments = getComments;
         vm.addComment = addComment;
         vm.incrementUpvotes = incrementUpvotes;
@@ -25,15 +24,8 @@
         activate();
 
         function activate() {
-            getAllComments();
             getComments();
 
-        }
-
-        function getAllComments() {
-            return commentService.getAllComments().then(function(data) {
-                vm.allComments = data.data;
-            });
         }
 
         function getComments() {
@@ -46,9 +38,11 @@
         }
 
         function addComment() {
-            if (vm.body === '') {
+            if (vm.body === ''  || !vm.body) {
+                vm.message = "You can't post an empty comment!";
                 return;
-            }
+            };
+            vm.message = null;
             commentService.addComment($stateParams.id, {
                 body: vm.body,
                 author: 'user',
@@ -67,6 +61,11 @@
         };
 
         function deleteComment(comment) {
+            if(comment.author != auth.currentUser()){
+              vm.message = "Unauthorized: only the author can remove comments.";
+              return;
+            }
+            vm.message = null;
             return commentService.deleteComment(vm.postid, comment).then(
                 getComments());
         }

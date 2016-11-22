@@ -9,10 +9,6 @@
 
     var service = {
       getAll:getAll,
-      getAllComments:getAllComments,
-      //create:create,
-      //upvote:upvote,
-    //  get:get,
       addComment:addComment,
       upvoteComment:upvoteComment,
       downvoteComment:downvoteComment,
@@ -26,13 +22,6 @@
     function getAll(id){
       return $http.get('/posts/' + id + '/comments').success(function(data) {
           return data;
-      });
-    };
-
-    function getAllComments(){
-      return $http.get('/comments').success(function(data){
-        $log.log(data);
-        return data;
       });
     };
 

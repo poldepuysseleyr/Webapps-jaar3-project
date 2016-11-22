@@ -12,7 +12,7 @@
         vm.user = auth.currentUser;
         vm.posts = [];
         vm.post;
-
+        vm.message;
 
         vm.getPosts = getPosts;
         vm.getPost = getPost;
@@ -21,6 +21,7 @@
         vm.incrementDownvotes = incrementDownvotes;
         vm.deletePost = deletePost;
         vm.modifyPost = modifyPost;
+
 
         activate();
 
@@ -41,16 +42,20 @@
         };
 
         function addPost() {
-            if (!vm.title || vm.title === '') {
-                return;
-            }
+            if (!vm.title || vm.title === '' || !vm.text || vm.text.trim() === "") {
+                    vm.message = "You need to add a title or text before you can post!";
+                    return;
+            };
+            vm.message = null;
             postService.create({
                 title: vm.title,
                 link: vm.link,
+                text : vm.text,
             }).then(function(data) {
                 vm.posts.push(data.data);
                 vm.title = '';
                 vm.link = '';
+                vm.text = '';
             });
         };
 
@@ -63,6 +68,11 @@
         };
 
         function deletePost(post) {
+          if(post.author != auth.currentUser()){
+            vm.message = "Unauthorized: only the author can remove this post.";
+            return;
+          }
+          vm.message = null;
             return postService.deletePost(post).then(function() {
                 $state.go('home');
                 getPosts();
@@ -70,12 +80,15 @@
         };
 
         function modifyPost() {
-            if (!vm.post.title || vm.post.title === '') {
+            if (!vm.post.title || vm.post.title === ''|| !vm.text || vm.text.trim() === "") {
+                vm.message = "Title or text can not be empty!";
                 return;
             }
+            vm.message = null;
             return postService.update($stateParams.id, {
                 title: vm.post.title,
-                link: vm.post.link
+                link: vm.post.link,
+                text:vm.post.text
             }).then($state.go("home"));
         };
     }

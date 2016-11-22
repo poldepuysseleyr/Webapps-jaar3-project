@@ -12,6 +12,7 @@
             get:get,
             getAll:getAll,
             update:update,
+            deleteUser: deleteUser
         };
 
 
@@ -39,6 +40,16 @@
                 return data;
             });
         };
+
+        function deleteUser(user){
+            return $http.delete('/users/' + user._id, {
+                headers: {
+                    Authorization: 'Bearer' + auth.getToken()
+                }
+            }).then(function(res) {
+                return res.data;
+            })
+        }
 
 
     }

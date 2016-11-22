@@ -3,9 +3,9 @@
 
     angular.module("flapperNews").controller('UserController', UserController)
 
-    UserController.$inject = ['$log', 'userService', 'auth', '$stateParams', 'postsUser', '$filter', '$state','commentService']
+    UserController.$inject = ['$log', 'userService', 'auth', '$stateParams', 'postsUser', '$filter', '$state', 'commentService']
 
-    function UserController($log, userService, auth, $stateParams, postsUser, $filter, $state,commentService) {
+    function UserController($log, userService, auth, $stateParams, postsUser, $filter, $state, commentService) {
         var vm = this;
 
         vm.isLoggedIn = auth.isLoggedIn;
@@ -16,7 +16,7 @@
         vm.posts = $filter('filter')(postsUser.data, {
             author: vm.username
         });
-        vm.error;
+        vm.message;
 
 
         vm.getUser = getUser;
@@ -24,6 +24,7 @@
         vm.updateUser = updateUser;
         vm.convertDate = convertDate;
         vm.getCommentsOfPost = getCommentsOfPost;
+        vm.deleteUser = deleteUser;
 
 
         activate();
@@ -36,7 +37,11 @@
         function getUser() {
             userService.get(vm.userID).then(function(data) {
                 vm.user = data.data;
-                convertDate(vm.user);
+                if (vm.user.birthday == null) {
+                    vm.user.birthday = "";
+                } else {
+                    convertDate(vm.user);
+                };
                 return vm.user;
             });
         };
@@ -47,12 +52,12 @@
         };
 
         function updateUser() {
-          $log.log("binnengekomen")
             vm.userID = auth.currentUserId();
-            if(convertDate(vm.user.birthday) >= new Date()){
-              vm.error = "Birthday must be in the past!"
+            if (convertDate(vm.user.birthday) >= new Date()) {
+                vm.message = "Your birthday can't be in the past!"
+                return;
             }
-            vm.error = null;
+            vm.message = null;
             return userService.update(vm.userID, {
                 username: vm.user.username,
                 firstname: vm.user.firstname,
@@ -70,11 +75,18 @@
             vm.user.birthday = new Date(date);
         };
 
-        function getCommentsOfPost(post){
-          var id = post._id;
-          return commentService.getAll(id).then(function(data){
-          vm.commentsOfPost = data.data;
-          });
+        function getCommentsOfPost(post) {
+            var id = post._id;
+            return commentService.getAll(id).then(function(data) {
+                vm.commentsOfPost = data.data;
+            });
+        };
+
+        function deleteUser(user) {
+            return userService.deleteUser(user).then(function() {
+                $state.go("home");
+                auth.logOut();
+            });
         };
 
 

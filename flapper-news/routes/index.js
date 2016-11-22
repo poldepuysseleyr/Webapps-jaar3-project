@@ -19,8 +19,8 @@ router.get('/', function(req, res, next) {
     });
 });
 
-module.exports = router;
 
+// POST ROUTERING
 router.get('/posts', function(req, res, next) {
     Post.find(function(err, posts) {
         if (err) {
@@ -108,6 +108,41 @@ router.post('/posts/:post/comments', auth, function(req, res, next) {
     });
 });
 
+
+router.put('/posts/:post', auth, function(req, res) {
+    Post.findById(req.post._id, function(err, post) {
+        if (err) {
+            res.send(err);
+        }
+
+        post.title = req.body.title;
+        post.link = req.body.link;
+
+        post.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(post);
+        })
+
+    });
+});
+
+router.delete('/posts/:post', auth, function(req, res, next) {
+    Post.remove({
+        _id: req.post._id
+    }, function(err, post) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({
+            message: 'post deleted'
+        });
+    });
+});
+
+
+// COMMENT ROUTERING
 router.param('comment', function(req, res, next, id) {
     var query = Comment.findById(id);
 
@@ -155,8 +190,25 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
 
         res.json(comment);
     });
+});µ
+
+
+router.delete('/posts/:post/comments/:comment', auth, function(req, res, next) {
+    Comment.remove({
+        _id: req.comment._id
+    }, function(err, comment) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({
+            message: 'comment deleted'
+        });
+    });
 });
 
+
+
+// AUTHENTICATIE ROUTERING
 router.post('/register', function(req, res, next) {
     if (!req.body.username || !req.body.password) {
         return res.status(400).json({
@@ -196,6 +248,8 @@ router.post('/login', function(req, res, next) {
         }
     })(req, res, next);
 });
+
+//USER ROUTERING
 
 router.param('user', function(req, res, next, id) {
     var query = User.findById(id);
@@ -250,47 +304,18 @@ router.put('/users/:user', auth, function(req, res) {
     });
 });
 
-router.delete('/posts/:post/comments/:comment', auth, function(req, res, next) {
-    Comment.remove({
-        _id: req.comment._id
-    }, function(err, comment) {
-        if (err) {
-            res.send(err);
-        }
-        res.json({
-            message: 'comment deleted'
-        });
-    });
-});
 
-router.put('/posts/:post', auth, function(req, res) {
-    Post.findById(req.post._id, function(err, post) {
-        if (err) {
-            res.send(err);
-        }
-
-        post.title = req.body.title;
-        post.link = req.body.link;
-
-        post.save(function(err) {
+router.delete('/users/:user',auth, function(req, res, next) {
+        User.remove({
+            _id: req.user._id
+        }, function(err, user) {
             if (err) {
                 res.send(err);
             }
-            res.json(post);
-        })
-
-    });
-});
-
-router.delete('/posts/:post', auth, function(req, res, next) {
-    Post.remove({
-        _id: req.post._id
-    }, function(err, post) {
-        if (err) {
-            res.send(err);
-        }
-        res.json({
-            message: 'post deleted'
+            res.json({
+                message: 'User deleted'
+            });
         });
     });
-});
+
+module.exports = router;
