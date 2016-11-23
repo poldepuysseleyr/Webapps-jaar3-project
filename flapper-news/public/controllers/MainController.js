@@ -80,7 +80,7 @@
         };
 
         function modifyPost() {
-            if (!vm.post.title || vm.post.title === ''|| !vm.text || vm.text.trim() === "") {
+            if (!vm.post.title || vm.post.title === ''|| !vm.post.text || vm.post.text.trim() === "") {
                 vm.message = "Title or text can not be empty!";
                 return;
             }

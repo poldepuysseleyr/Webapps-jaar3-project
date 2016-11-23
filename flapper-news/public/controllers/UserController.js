@@ -25,6 +25,7 @@
         vm.convertDate = convertDate;
         vm.getCommentsOfPost = getCommentsOfPost;
         vm.deleteUser = deleteUser;
+        vm.convertDateToString = convertDateToString;
 
 
         activate();
@@ -41,7 +42,8 @@
                     vm.user.birthday = "";
                 } else {
                     convertDate(vm.user);
-                };
+                }
+
                 return vm.user;
             });
         };
@@ -53,7 +55,7 @@
 
         function updateUser() {
             vm.userID = auth.currentUserId();
-            if (convertDate(vm.user.birthday) >= new Date()) {
+            if (convertDate(vm.user) >= new Date()) {
                 vm.message = "Your birthday can't be in the past!"
                 return;
             }
@@ -71,7 +73,7 @@
 
 
         function convertDate(user) {
-            var date = vm.user.birthday;
+            var date = user.birthday;
             vm.user.birthday = new Date(date);
         };
 
@@ -88,6 +90,12 @@
                 auth.logOut();
             });
         };
+
+        function convertDateToString(birthday) {
+            var date = new Date(birthday).toLocaleString().split(" ", 1)[0];
+            return date;
+
+        }
 
 
 

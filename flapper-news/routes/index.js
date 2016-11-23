@@ -190,7 +190,7 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
 
         res.json(comment);
     });
-});µ
+});
 
 
 router.delete('/posts/:post/comments/:comment', auth, function(req, res, next) {

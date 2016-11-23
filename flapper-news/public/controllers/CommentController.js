@@ -12,6 +12,7 @@
         vm.postid;
         vm.post;
         vm.message;
+        vm.error;
 
         vm.getComments = getComments;
         vm.addComment = addComment;
@@ -62,10 +63,10 @@
 
         function deleteComment(comment) {
             if(comment.author != auth.currentUser()){
-              vm.message = "Unauthorized: only the author can remove comments.";
+              vm.error = "Unauthorized: only the author can remove comments.";
               return;
             }
-            vm.message = null;
+            vm.error = null;
             return commentService.deleteComment(vm.postid, comment).then(
                 getComments());
         }

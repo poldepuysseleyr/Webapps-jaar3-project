@@ -37,6 +37,10 @@
             <div>
                 <ui-view></ui-view>
             </div>
+            <hr>
+            <footer class="footer">
+                <p>Pol De Puysseleyr</p>
+            </footer>
         </div>
     </div>
 
@@ -67,7 +71,8 @@
                     </span>
                     </div>
                     <div class="panel-body">
-                        <span style="white-space: pre-wrap">{{post.text | limitTo: 500 }}...</span><br>
+                        <span ng-if='post.text.length > 500' style="white-space: pre-wrap">{{post.text | limitTo:500 }}...</span>
+                        <span ng-if='post.text.length < 500' style="white-space: pre-wrap">{{post.text}}</span><br>
                         <span>
                           <a href="#/posts/{{post._id}}/comments">Full post</a>
                          </span>
@@ -95,10 +100,7 @@
             <div ng-hide="ctrl.isLoggedIn()">
                 <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
             </div>
-            <hr>
-            <footer class="footer">
-                <p>Pol De Puysseleyr</p>
-            </footer>
+
         </div>
     </script>
 
@@ -121,6 +123,9 @@
             </div>
             <hr>
             <h3>Comments </h3>
+            <div ng-show="ctrl.error" class="alert alert-danger row">
+                <span>{{ ctrl.error }}</span>
+            </div>
             <div ng-repeat="comment in ctrl.comments | orderBy:'-upvotes'">
                 <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(comment)"></span>
                 <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(comment)"></span> {{comment.upvotes}} - by {{comment.author}}
@@ -226,14 +231,15 @@
                             </div>
                             <div class="form-group">
                                 <label>Birthday</label>
-                                <p>{{ctrl.user.birthday}} </p>
+                                <p ng-if='ctrl.user.birthday'>{{ctrl.convertDateToString(ctrl.user.birthday)}} </p>
+                                <p ng-if='!ctrl.user.birthday'>{{ctrl.user.birthday}} </p>
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
                                 <p>{{ctrl.user.address}} </p>
                             </div>
                             <span>
-                              <a href="#/users/{{ctrl.userID}}">Edit profile</a>
+                              <a class="btn btn-primary" href="#/users/{{ctrl.userID}}">Edit</a>
                              </span>
                         </form>
                     </uib-tab>
@@ -306,10 +312,6 @@
                 <button type="submit" class="btn btn-success">Update</button>
                 <button type="submit" class="btn btn-danger" ng-click="ctrl.deletePost(ctrl.post)">Delete</button>
             </form>
-            <hr>
-            <footer class="footer">
-                <p>Pol De Puysseleyr</p>
-            </footer>
         </div>
     </script>
 
@@ -357,6 +359,8 @@
             </form>
         </div>
     </script>
+
+
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
