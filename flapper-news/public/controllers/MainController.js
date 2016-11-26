@@ -12,7 +12,7 @@
         vm.user = auth.currentUser;
         vm.posts = [];
         vm.post;
-        vm.message;
+        vm.error;
 
         vm.getPosts = getPosts;
         vm.getPost = getPost;
@@ -27,6 +27,7 @@
 
         function activate() {
             return getPosts();
+
         };
 
         function getPosts() {
@@ -43,10 +44,10 @@
 
         function addPost() {
             if (!vm.title || vm.title === '' || !vm.text || vm.text.trim() === "") {
-                    vm.message = "You need to add a title or text before you can post!";
+                    vm.error = "You need to add a title or text before you can post!";
                     return;
             };
-            vm.message = null;
+            vm.error = null;
             postService.create({
                 title: vm.title,
                 link: vm.link,
@@ -69,10 +70,10 @@
 
         function deletePost(post) {
           if(post.author != auth.currentUser()){
-            vm.message = "Unauthorized: only the author can remove this post.";
+            vm.error = "Unauthorized: only the author can remove this post.";
             return;
           }
-          vm.message = null;
+          vm.error = null;
             return postService.deletePost(post).then(function() {
                 $state.go('home');
                 getPosts();
@@ -81,10 +82,10 @@
 
         function modifyPost() {
             if (!vm.post.title || vm.post.title === ''|| !vm.post.text || vm.post.text.trim() === "") {
-                vm.message = "Title or text can not be empty!";
+                vm.error = "Title or text can not be empty!";
                 return;
             }
-            vm.message = null;
+            vm.error = null;
             return postService.update($stateParams.id, {
                 title: vm.post.title,
                 link: vm.post.link,

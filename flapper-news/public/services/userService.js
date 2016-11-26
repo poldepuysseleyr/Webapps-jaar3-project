@@ -31,10 +31,9 @@
         };
 
         function update(id,user){
-          $log.log("userservice update")
             return $http.put('/users/' + id, user, {
                 headers: {
-                    Authorization: 'Bearer' + auth.getToken()
+                    Authorization: 'Bearer ' + auth.getToken()
                 }
             }).success(function(data) {
                 return data;
@@ -44,7 +43,7 @@
         function deleteUser(user){
             return $http.delete('/users/' + user._id, {
                 headers: {
-                    Authorization: 'Bearer' + auth.getToken()
+                    Authorization: 'Bearer ' + auth.getToken()
                 }
             }).then(function(res) {
                 return res.data;

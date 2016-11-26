@@ -11,7 +11,6 @@
         vm.comment;
         vm.postid;
         vm.post;
-        vm.message;
         vm.error;
 
         vm.getComments = getComments;
@@ -40,10 +39,10 @@
 
         function addComment() {
             if (vm.body === ''  || !vm.body) {
-                vm.message = "You can't post an empty comment!";
+                vm.error = "You can't post an empty comment!";
                 return;
             };
-            vm.message = null;
+            vm.error = null;
             commentService.addComment($stateParams.id, {
                 body: vm.body,
                 author: 'user',

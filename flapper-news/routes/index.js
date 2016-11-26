@@ -81,6 +81,7 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
 
 router.put('/posts/:post/downvote', auth, function(req, res, next) {
     req.post.downvote(function(err, post) {
+
         if (err) {
             return next(err);
         }
@@ -117,8 +118,9 @@ router.put('/posts/:post', auth, function(req, res) {
 
         post.title = req.body.title;
         post.link = req.body.link;
+        post.text = req.body.text;
 
-        post.save(function(err) {
+        post.save(function(err,post) {
             if (err) {
                 res.send(err);
             }
@@ -250,72 +252,4 @@ router.post('/login', function(req, res, next) {
 });
 
 //USER ROUTERING
-
-router.param('user', function(req, res, next, id) {
-    var query = User.findById(id);
-
-    query.exec(function(err, user) {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return next(new Error('can\'t find user'));
-        }
-
-        req.user = user;
-        return next();
-    });
-});
-router.get('/users', function(req, res, next) {
-    User.find(function(err, users) {
-        if (err) {
-            return next(err);
-        }
-
-        res.json(users);
-    });
-});
-
-router.get('/users/:user', function(req, res, next) {
-    res.json(req.user);
-});
-
-router.put('/users/:user', auth, function(req, res) {
-    User.findById(req.user._id, function(err, user) {
-        if (err) {
-            res.send(err);
-        }
-
-        user.username = req.body.username;
-        user.firstname = req.body.firstname;
-        user.lastname = req.body.lastname;
-        user.gender = req.body.gender;
-        user.email = req.body.email;
-        user.birthday = req.body.birthday;
-        user.address = req.body.address;
-
-        user.save(function(err) {
-            if (err) {
-                res.send(err);
-            }
-            res.json(user);
-        })
-
-    });
-});
-
-
-router.delete('/users/:user',auth, function(req, res, next) {
-        User.remove({
-            _id: req.user._id
-        }, function(err, user) {
-            if (err) {
-                res.send(err);
-            }
-            res.json({
-                message: 'User deleted'
-            });
-        });
-    });
-
 module.exports = router;

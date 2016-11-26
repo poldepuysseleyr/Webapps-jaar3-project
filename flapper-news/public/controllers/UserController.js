@@ -16,7 +16,7 @@
         vm.posts = $filter('filter')(postsUser.data, {
             author: vm.username
         });
-        vm.message;
+        vm.error;
 
 
         vm.getUser = getUser;
@@ -55,11 +55,11 @@
 
         function updateUser() {
             vm.userID = auth.currentUserId();
-            if (convertDate(vm.user) >= new Date()) {
-                vm.message = "Your birthday can't be in the past!"
+            if (vm.user.birthday >= new Date() || vm.user.birthday.getFullYear() <= new Date().getFullYear() - 13 ) {
+                vm.error = "Your birthday can't be in the future and you must be atleast 14 years old!"
                 return;
             }
-            vm.message = null;
+            vm.error = null;
             return userService.update(vm.userID, {
                 username: vm.user.username,
                 firstname: vm.user.firstname,

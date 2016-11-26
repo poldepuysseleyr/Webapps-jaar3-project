@@ -70,9 +70,9 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
             }
         }],
         resolve: {
-            postsUser: ['postService', function(postService) {
-                return postService.getAll();
-            }]
+            postsUser: function(){
+              return { data: []}
+            }
         }
     });;
     $urlRouterProvider.otherwise('home');

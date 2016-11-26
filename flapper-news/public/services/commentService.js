@@ -57,7 +57,7 @@
     function deleteComment(postid,comment){
       return $http.delete('/posts/' + postid + '/comments/' + comment._id,{
         headers: {
-          Authorization : 'Bearer' + auth.getToken()
+          Authorization : 'Bearer ' + auth.getToken()
         }
       }).success(function(data){
         return data;

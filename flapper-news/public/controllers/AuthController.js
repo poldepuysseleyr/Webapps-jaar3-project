@@ -15,7 +15,7 @@
 
       function register(){
         auth.register(vm.user).error(function(error){
-          vm.error = error;
+          vm.error = error.message;
           $log.log("Register is called in AuthController");
         }).then(function(){
           $state.go('home');
@@ -25,7 +25,7 @@
 
       function logIn(){
           auth.logIn(vm.user).error(function(error) {
-              vm.error = error;
+              vm.error = error.message;
           }).then(function() {
               $state.go('home');
           });

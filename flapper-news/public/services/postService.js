@@ -66,7 +66,7 @@
         function deletePost(post) {
             return $http.delete('/posts/' + post._id, {
                 headers: {
-                    Authorization: 'Bearer' + auth.getToken()
+                    Authorization: 'Bearer ' + auth.getToken()
                 }
             }).then(function(res) {
                 return res.data;
@@ -76,7 +76,7 @@
         function update(id, post) {
             return $http.put('/posts/' + id, post, {
                 headers: {
-                    Authorization: 'Bearer' + auth.getToken()
+                    Authorization: 'Bearer ' + auth.getToken()
                 }
             }).success(function(data) {
                 return data;
