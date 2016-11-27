@@ -11,12 +11,12 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         controllerAs: 'ctrl'
     }).state('posts', {
         url: '/posts/{id}/comments',
-        templateUrl: '/posts.html',
+        templateUrl: '/templates/posts.html',
         controller: 'CommentController',
         controllerAs: 'ctrl'
     }).state('login', {
         url: '/login',
-        templateUrl: '/login.html',
+        templateUrl: '/templates/login.html',
         controller: 'AuthController',
         controllerAs: 'ctrl',
         onEnter: ['$state', 'auth', function($state, auth) {
@@ -26,7 +26,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         }]
     }).state('register', {
         url: '/register',
-        templateUrl: '/register.html',
+        templateUrl: '/templates/register.html',
         controller: 'AuthController',
         controllerAs: 'ctrl',
         onEnter: ['$state', 'auth', function($state, auth) {
@@ -36,7 +36,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         }]
     }).state('myprofile', {
         url: '/myprofile/{id}',
-        templateUrl: '/myprofile.html',
+        templateUrl: '/templates/myprofile.html',
         controller: 'UserController',
         controllerAs: 'ctrl',
         onEnter: ['$state', 'auth', function($state, auth) {
@@ -51,7 +51,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         }
     }).state('modifypost', {
         url: '/posts/{id}',
-        templateUrl: '/modifypost.html',
+        templateUrl: '/templates/modifypost.html',
         controller: 'MainController',
         controllerAs: 'ctrl',
         onEnter: ['$state', 'auth', function($state, auth) {
@@ -61,7 +61,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         }]
     }).state('modifyuser', {
         url: '/users/{id}',
-        templateUrl: '/modifyuser.html',
+        templateUrl: '/templates/modifyuser.html',
         controller: 'UserController',
         controllerAs: 'ctrl',
         onEnter: ['$state', 'auth', function($state, auth) {

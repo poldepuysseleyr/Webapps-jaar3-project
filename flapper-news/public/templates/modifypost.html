@@ -1,0 +1,22 @@
+<div>
+    <errors-directive error="{{ctrl.error}}"></errors-directive>
+    <div class="page-header">
+        <h1>Modify post</h1>
+    </div>
+    <form ng-submit="ctrl.modifyPost()" ng-init="ctrl.getPost()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" placeholder="Title" ng-model="ctrl.post.title"></input>
+        </div>
+        <div class="form-group">
+            <label>Link</label>
+            <input type="text" class="form-control" placeholder="Link" ng-model="ctrl.post.link"></input>
+        </div>
+        <div class="form-group">
+            <textarea name="textEditor" class="form-control" rows="8" cols="100" placeholder="Place text here" ng-model="ctrl.post.text"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
+    <button class="btn btn-danger" ng-click="ctrl.deletePost(ctrl.post)">Delete</button>
+</div>
