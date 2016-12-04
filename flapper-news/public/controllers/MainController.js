@@ -90,7 +90,10 @@
                 title: vm.post.title,
                 link: vm.post.link,
                 text:vm.post.text
-            }).then($state.go("home"));
+            }).then(function(){
+              getPosts();
+              $state.go("home");
+            });
         };
     }
 })();

@@ -74,6 +74,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
               return { data: []}
             }
         }
-    });;
-//    $urlRouterProvider.otherwise('home');
+    });
+    //ZET UIT VOOR TESTEN
+    $urlRouterProvider.otherwise('home');
 };

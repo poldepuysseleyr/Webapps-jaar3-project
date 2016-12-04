@@ -55,10 +55,10 @@
 
         function updateUser() {
             vm.userID = auth.currentUserId();
-            if (vm.user.birthday >= new Date() || vm.user.birthday.getFullYear() <= new Date().getFullYear() - 13 ) {
+            if (vm.user.birthday >= new Date() || vm.user.birthday.getFullYear() >= new Date().getFullYear()-13 ) {
                 vm.error = "Your birthday can't be in the future and you must be atleast 14 years old!"
                 return;
-            }
+            };
             vm.error = null;
             return userService.update(vm.userID, {
                 username: vm.user.username,
