@@ -4,8 +4,8 @@
             <span ng-if="vm.filter" class="">
                 <a class="glyphicon glyphicon-cog" href="#/posts/{{post._id}}"></a>
             </span>
-            <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
-            <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(post)"></span>
+            <span class="glyphicon glyphicon-thumbs-up" ng-click="vm.incrementUpvotes(post)"></span>
+            <span class="glyphicon glyphicon-thumbs-down" ng-click="vm.incrementDownvotes(post)"></span>
             {{post.upvotes}}
             <span style="font-size:20px; margin-left:10px;">
                 <a ng-show="post.link" href="{{post.link}}">
