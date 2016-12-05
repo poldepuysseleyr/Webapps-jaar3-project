@@ -3,13 +3,13 @@ describe("angular", function() {
    var $controller;
    var $scope;
    var $httpBackend, $http;
-   var posts, postService;
+   var posts;
     beforeEach(function() {
         module('flapperNews');
         //Posts in controllers dit object laten gebruiken
         module(function($provide) {
           $provide.value('posts', {
-            posts : [{id: '34kd34', title: 'testpost', comments: [{id: 'comment1',body: 'tekst', upvotes: 10}],text:"Latijn"}],
+            posts : [{id: '34kd34', title: 'testpost', comments: [{id: 'comment1',body: 'tekst', upvotes: 10}],upvotes: 10, text:"Latijn"}],
             upvote : function(post) {
               post.upvotes += 1;
             },
@@ -48,16 +48,28 @@ describe("angular", function() {
           $httpBackend.expect('GET', 'http://post/3');
           */
 
-          $httpBackend.when('PUT', /\/posts\/.+\/upvote/).respond(function(method, url, data, headers) {
+          $httpBackend.when('GET', /\/posts\/(.+)/).respond(function(method, url, data, headers) {
             var args = url.match(/\/posts\/(.+)/);
             for (i in posts) {
               if (posts[i].id === args[1]) {
+                return [200, {post: posts[i]}];
+              }
+            }
+            return [400, {}]; // args[1] is de waarde tussen de haakjes in de reguliere expressie
+          });
+
+          $httpBackend.when('PUT', /\/posts\/(.+)\/upvote/).respond(function(method, url, data, headers,params) {
+            for (i in posts) {
+              if (posts[i].id) {
                 posts[i].upvotes += 1;
                 return [200, {post: posts[i]}];
               }
             }
             return [400, {}]; // args[1] is de waarde tussen de haakjes in de reguliere expressie
           });
+
+
+
         });
         // Injecteren van onze controller wanneer de andere wordt aangemaakt
         inject(function(_$controller_) {
@@ -75,8 +87,8 @@ describe("angular", function() {
     })
     it("module", function() {
       var ctrl = $controller('MainController', {$scope : $scope});
-      var post = {title : 'test', upvotes: 4 , text:"iets", id: "34kd34"};
-     ctrl.incrementUpvotes(post);
+      var post = { id: "34kd34" , title : 'test', upvotes: 4 , text:'latijn'};
+      //ctrl.incrementUpvotes(post);
 
       // var nrPosts = ctrl.posts.length;
       // ctrl.title = 'google';
@@ -85,23 +97,29 @@ describe("angular", function() {
       // ctrl.addPost();
 
       //
-      // $http.get('http://localhost/test').success(function(data, status, header, config){
-      //   ctrl.valid = true;
-      //   ctrl.name = data.name;
-      // });
+      $http.get('http://localhost/test').success(function(data, status, header, config){
+        ctrl.valid = true;
+        ctrl.name = data.name;
+      });
 
-      // $http.get('/posts/34kd34').success(function(data, status, header, config){
-      //   ctrl.post = data.post;
-      // });
+      $http.get('/posts/34kd34').success(function(data, status, header, config){
+        ctrl.post = data.post;
+      });
+
+      $http.put('/posts/34kd34/upvote').success(function(data, status, header, config){
+        ctrl.post = data.post;
+      });
+
+
 
       $httpBackend.flush(); //Verwerken van alle httpcalls (assynchroon faken)
       // expect(ctrl.posts.length).toBe(nrPosts + 1);
-      expect(post.upvotes).toBe(5);
+      expect(ctrl.post.upvotes).toBe(11);
 
 
 
-      // expect(ctrl.valid).toBe(true);
-      // expect(ctrl.name).toEqual('rudy');
-      // expect(ctrl.post.id).toEqual('34kd34');
+      expect(ctrl.valid).toBe(true);
+      expect(ctrl.name).toEqual('rudy');
+      expect(ctrl.post.id).toEqual('34kd34');
     });
 });
