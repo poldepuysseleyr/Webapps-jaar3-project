@@ -9,9 +9,9 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         templateUrl: '/templates/home.html',
         controller: 'MainController',
         controllerAs: 'ctrl'
-    }).state('posts', {
+    }).state('fullpost', {
         url: '/posts/{id}/comments',
-        templateUrl: '/templates/posts.html',
+        templateUrl: '/templates/fullpost.html',
         controller: 'CommentController',
         controllerAs: 'ctrl'
     }).state('login', {
@@ -43,12 +43,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
             if (!auth.isLoggedIn()) {
                 $state.go('home');
             };
-        }],
-        resolve: {
-            postsUser: ['postService', function(postService) {
-                return postService.getAll();
-            }]
-        }
+        }]
     }).state('modifypost', {
         url: '/posts/{id}',
         templateUrl: '/templates/modifypost.html',
@@ -68,12 +63,7 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
             if (!auth.isLoggedIn()) {
                 $state.go('home');
             }
-        }],
-        resolve: {
-            postsUser: function(){
-              return { data: []}
-            }
-        }
+        }]
     });
     //ZET UIT VOOR TESTEN
     $urlRouterProvider.otherwise('home');

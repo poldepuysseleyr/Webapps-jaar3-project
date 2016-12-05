@@ -3,9 +3,9 @@
 
     angular.module("flapperNews").controller('UserController', UserController)
 
-    UserController.$inject = ['$log', 'userService', 'auth', '$stateParams', 'postsUser', '$filter', '$state', 'commentService']
+    UserController.$inject = ['$log', 'userService', 'auth', '$stateParams','$state', 'commentService']
 
-    function UserController($log, userService, auth, $stateParams, postsUser, $filter, $state, commentService) {
+    function UserController($log, userService, auth, $stateParams, $state, commentService) {
         var vm = this;
 
         vm.isLoggedIn = auth.isLoggedIn;
@@ -13,9 +13,6 @@
         vm.user = {};
         vm.userID;
         vm.username = auth.currentUser();
-        vm.posts = $filter('filter')(postsUser.data, {
-            author: vm.username
-        });
         vm.error;
 
 
@@ -23,7 +20,6 @@
         vm.getUserID = getUserID;
         vm.updateUser = updateUser;
         vm.convertDate = convertDate;
-        vm.getCommentsOfPost = getCommentsOfPost;
         vm.deleteUser = deleteUser;
         vm.convertDateToString = convertDateToString;
 
@@ -68,7 +64,7 @@
                 email: vm.user.email,
                 birthday: vm.user.birthday,
                 address: vm.user.address
-            }).then($state.go("home"));
+            }).then($state.go("myprofile",{id: vm.userID}));
         };
 
 
@@ -77,12 +73,6 @@
             vm.user.birthday = new Date(date);
         };
 
-        function getCommentsOfPost(post) {
-            var id = post._id;
-            return commentService.getAll(id).then(function(data) {
-                vm.commentsOfPost = data.data;
-            });
-        };
 
         function deleteUser(user) {
             return userService.deleteUser(user).then(function() {

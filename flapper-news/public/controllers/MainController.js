@@ -3,9 +3,9 @@
 
     angular.module("flapperNews").controller('MainController', MainController)
 
-    MainController.$inject = ['$log', 'postService', 'auth', '$stateParams', '$state']
+    MainController.$inject = ['$log', 'postService', 'auth', '$stateParams', '$state','$filter']
 
-    function MainController($log, postService, auth, $stateParams, $state) {
+    function MainController($log, postService, auth, $stateParams, $state,$filter) {
         var vm = this;
 
         vm.isLoggedIn = auth.isLoggedIn;
@@ -13,6 +13,7 @@
         vm.posts = [];
         vm.post;
         vm.error;
+        vm.filter;
 
         vm.getPosts = getPosts;
         vm.getPost = getPost;
@@ -21,6 +22,7 @@
         vm.incrementDownvotes = incrementDownvotes;
         vm.deletePost = deletePost;
         vm.modifyPost = modifyPost;
+        vm.filterPosts = filterPosts;
 
 
         activate();
@@ -33,6 +35,9 @@
         function getPosts() {
             postService.getAll().then(function(data) {
                 vm.posts = data.data;
+                if (vm.filter){
+                  filterPosts(vm.posts);
+                }
             });
         };
 
@@ -57,6 +62,7 @@
                 vm.title = '';
                 vm.link = '';
                 vm.text = '';
+
             });
         };
 
@@ -94,6 +100,13 @@
               getPosts();
               $state.go("home");
             });
+        };
+
+        function filterPosts(){
+          vm.posts = $filter('filter')(vm.posts, {
+              author: auth.currentUser()
+          });
+          return vm.posts;
         };
     }
 })();

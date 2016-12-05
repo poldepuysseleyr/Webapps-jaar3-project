@@ -1,0 +1,46 @@
+<div>
+    <div class="page-header">
+        <h3>
+            <a ng-show="ctrl.post.link" href="{{ctrl.post.link}}">
+                {{ctrl.post.title}}
+            </a>
+            <span ng-hide="ctrl.post.link">
+                {{ctrl.post.title}}
+            </span>
+        </h3>
+    </div>
+    <div>
+        <span style="white-space: pre-wrap">{{ctrl.post.text}}</span>
+    </div>
+    <hr>
+    <h3>Comments
+    </h3>
+    <errors-directive error="{{ctrl.error}}"></errors-directive>
+    <div ng-repeat="comment in ctrl.comments | orderBy:'-upvotes'">
+        <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(comment)"></span>
+        <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(comment)"></span>
+        {{comment.upvotes}}
+        - by
+        {{comment.author}}
+        <span style="font-size:20px; margin-left:10px;">
+            {{comment.body}}
+        </span>
+        <span ng-show="ctrl.isLoggedIn()" class="pull-right glyphicon glyphicon-trash" ng-click="ctrl.deleteComment(comment)"></span>
+    </div>
+    <hr>
+    <form ng-submit="ctrl.addComment()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">
+        <h3>Add a new comment</h3>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Comment" ng-model="ctrl.body"></input>
+        </div>
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+    <div ng-hide="ctrl.isLoggedIn()">
+        <h3>You need to
+            <a href="/#/login">Log In</a>
+            or
+            <a href="/#/register">Register</a>
+            before you can comment.</h3>
+    </div>
+</div>

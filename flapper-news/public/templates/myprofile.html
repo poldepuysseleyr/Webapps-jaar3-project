@@ -48,12 +48,14 @@
                 </div>
             </uib-tab>
             <uib-tab index="1" heading="My posts">
-                <div>
+              <posts-directive  filter = "true">
+              </posts-directive>
+                <!-- <div>
                     <uib-accordion>
-                        <div uib-accordion-group class="panel-default animated slideInRight" ng-repeat="post in ctrl.posts | orderBy:-upvotes">
+                        <div uib-accordion-group ng-click="ctrl.getCommentsOfPost(post)" class="panel-default animated slideInRight" ng-repeat="post in ctrl.posts | orderBy:-upvotes">
                             <uib-accordion-heading>
                                 {{post.title}}
-                                <i ng-click="ctrl.getCommentsOfPost(post)" class="pull-right glyphicon glyphicon-chevron-down"></i>
+                                <i class="pull-right glyphicon glyphicon-chevron-down"></i>
                             </uib-accordion-heading>
                             <h6>Post</h6>
                             <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
@@ -89,10 +91,7 @@
                         </div>
 
                     </uib-accordion>
-                </div>
-            </uib-tab>
-            <uib-tab index="2" heading="Todo-list">
-              <todo-list-directive list="todo"> </todo-list-directive>
+                </div> -->
             </uib-tab>
         </uib-tabset>
         <form></div>

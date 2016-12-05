@@ -3,7 +3,8 @@
         <h1>Flapper News</h1>
     </div>
     <h2>Posts</h2>
-    <div class="animated fadeInDown" ng-repeat="post in ctrl.posts | orderBy:'-upvotes'">
+    <posts-directive posts="vm.posts"></posts-directive>
+    <!-- <div class="animated fadeInDown" ng-repeat="post in ctrl.posts | orderBy:'-upvotes'">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
@@ -30,7 +31,7 @@
                 </span>
             </div>
         </div>
-    </div>
+    </div> -->
     <hr>
     <errors-directive error="{{ctrl.error}}"></errors-directive>
     <form ng-submit="ctrl.addPost()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">
