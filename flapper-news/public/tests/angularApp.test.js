@@ -116,9 +116,6 @@ describe("angular", function() {
       $httpBackend.flush(); //Verwerken van alle httpcalls (assynchroon faken)
       // expect(ctrl.posts.length).toBe(nrPosts + 1);
       expect(ctrl.post.upvotes).toBe(11);
-
-
-
       expect(ctrl.valid).toBe(true);
       expect(ctrl.name).toEqual('rudy');
       expect(ctrl.post.id).toEqual('34kd34');

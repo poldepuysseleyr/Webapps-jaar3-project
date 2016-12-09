@@ -26,7 +26,6 @@
         function getAll() {
             return $http.get('/users').success(function(data) {
                 return data;
-
             });
         };
 

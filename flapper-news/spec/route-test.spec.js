@@ -1,6 +1,7 @@
 // npm install --save-dev request
 // npm install -g jasmine-node
-var request = require("request");
+beforeEach(angular.mock.module('flapperNews'));
+var request = require("postService");
 // Nu gebruiken we onze mongodb databank, maar deze is niet gemaakt om te testen > fictieve of mock databank gebruiken > Mockgooze
 
 describe("router", function() {
