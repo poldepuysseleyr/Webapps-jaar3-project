@@ -35,12 +35,15 @@ npm install passport passport-local --save
 For karma
 
 npm install karma-jasmine --save-dev
+
 npm install jasmine-core --save-dev
 
 Karma spec
+
 npm install karma-spec-reporter --save-dev
 
 Angular mocks
+
 npm install angular-mocks
 
 
