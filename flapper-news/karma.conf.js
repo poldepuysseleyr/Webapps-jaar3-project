@@ -16,11 +16,12 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'libs/angular.js',
-      'libs/angular-mocks.js',
       'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js',
+      'libs/angular-mocks.js',
       'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.js',
       'public/javascripts/flapperNews.module.js',
       'public/javascripts/*.js',
+      'public/tests/*.js',
       'public/controllers/*.js',
       'public/services/*.js',
       'public/services/*.html'

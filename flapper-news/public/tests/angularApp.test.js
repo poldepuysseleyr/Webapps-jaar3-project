@@ -1,6 +1,7 @@
 describe("angular", function() {
   // Aanmaken van lokale var
    var $controller;
+   var $service;
    var $scope;
    var $httpBackend, $http;
    var posts;
