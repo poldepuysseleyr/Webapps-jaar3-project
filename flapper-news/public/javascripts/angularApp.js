@@ -66,5 +66,5 @@ function flapperNewsState($stateProvider, $urlRouterProvider) {
         }]
     });
     //ZET UIT VOOR TESTEN
-    //$urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('home');
 };
