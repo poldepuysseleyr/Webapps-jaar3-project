@@ -34,6 +34,10 @@ npm install passport passport-local --save
 
 #For karma
 
+npm install karma --save-dev
+
+npm install -g karma-cli
+
 npm install karma-jasmine --save-dev
 
 npm install jasmine-core --save-dev
