@@ -62,7 +62,6 @@
                 vm.title = '';
                 vm.link = '';
                 vm.text = '';
-
             });
         };
 

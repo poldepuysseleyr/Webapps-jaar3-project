@@ -62,7 +62,7 @@
 
         function deleteComment(comment) {
             if(comment.author != auth.currentUser()){
-              vm.error = "Unauthorized: only the author can remove comments.";
+              vm.error = "Unauthorized: only the author of the comment can remove this.";
               return;
             }
             vm.error = null;
