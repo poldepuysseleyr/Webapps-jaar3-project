@@ -2,6 +2,10 @@
 project for course webapps
 
 
+See on heroku:
+
+http://flappernews-pdp.herokuapp.com/#/home
+
 What to install after cloning?
 
 #To start with this project do :
