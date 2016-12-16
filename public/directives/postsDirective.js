@@ -16,10 +16,10 @@
             controllerAs: 'vm',
             templateUrl: '/templates/posts.html',
             bindToController: true,
-            link: function(scope, elem, attrs){
-              if (scope.vm.filter){
-                scope.vm.filterPosts();
-              }
+            link: function(scope, elem, attrs) {
+                if (scope.vm.filter) {
+                    scope.vm.filterPosts();
+                };
             }
         };
 

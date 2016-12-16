@@ -4,34 +4,7 @@
     </div>
     <h2>Posts</h2>
     <posts-directive posts="vm.posts"></posts-directive>
-    <!-- <div class="animated fadeInDown" ng-repeat="post in ctrl.posts | orderBy:'-upvotes'">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-thumbs-up" ng-click="ctrl.incrementUpvotes(post)"></span>
-                <span class="glyphicon glyphicon-thumbs-down" ng-click="ctrl.incrementDownvotes(post)"></span>
-                {{post.upvotes}}
-                <span style="font-size:20px; margin-left:10px;">
-                    <a ng-show="post.link" href="{{post.link}}">
-                        {{post.title}}
-                    </a>
-                    <span ng-hide="post.link">
-                        {{post.title}}
-                    </span>
-                </span>
-                <span class="pull-right" ng-show="post.author">
-                    posted by
-                    <a>{{post.author}}</a>
-                </span>
-            </div>
-            <div class="panel-body">
-                <span ng-if='post.text.length > 500' style="white-space: pre-wrap">{{post.text | limitTo:500 }}...</span>
-                <span ng-if='post.text.length < 500' style="white-space: pre-wrap">{{post.text}}</span><br>
-                <span>
-                    <a href="#/posts/{{post._id}}/comments">Full post</a>
-                </span>
-            </div>
-        </div>
-    </div> -->
+
     <hr>
     <errors-directive error="{{ctrl.error}}"></errors-directive>
     <form ng-submit="ctrl.addPost()" ng-show="ctrl.isLoggedIn()" style="margin-top:30px;">
