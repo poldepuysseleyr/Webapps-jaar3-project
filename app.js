@@ -12,7 +12,8 @@ require('./models/Comments');
 require('./models/Users');
 require('./config/passport');
 
-mongoose.connect('mongodb://localhost/flapperNews');
+// mongoose.connect('mongodb://localhost/flapperNews');
+mongoose.connect('mongodb://admin:admin@ds135798.mlab.com:35798/flappernewsdb');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
