@@ -66,8 +66,10 @@
               return;
             }
             vm.error = null;
-            return commentService.deleteComment(vm.postid, comment).then(
-                getComments());
+            return commentService.deleteComment(vm.postid, comment).then(function(){
+              getComments()
+            });
+
         }
 
         function getPost() {
