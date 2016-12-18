@@ -20,6 +20,8 @@
                 if (scope.vm.filter) {
                     scope.vm.filterPosts();
                 };
+
+                console.log(attrs);
             }
         };
 
